@@ -4,7 +4,8 @@ import os
 import plotly.express as px
 
 
-st.title("Sierra Mining and Crushing")
+st.set_page_config(page_title="Sierra Mining and Crushing Dashboard", layout="wide")
+
 
 
 # Load the dataset Fiscal_Y2D.CSV, convert the first column to index, and transpose the dataframe,
@@ -66,8 +67,38 @@ def plot_total_income(weekly_data):
                   markers=True)
     return st.plotly_chart(fig, use_container_width=True)
 
-container = st.container(border=True)
-with container:
+# Create plot of Total COGS over time.
+def plot_total_cogs(weekly_data):
+    fig = px.line(weekly_data, x='Week', y='Total COGS', title='Weekly Total Cost of Goods and Services Over Time',
+                  markers=True)
+    return st.plotly_chart(fig, use_container_width=True)
+
+
+# Create plot of Total Expenses over time.
+def plot_total_expenses(weekly_data):
+    fig = px.line(weekly_data, x='Week', y='Total Expenses', title='Weekly Total Expenses Over Time',
+                  markers=True)
+    return st.plotly_chart(fig, use_container_width=True)
+
+# Create plot of Net Income over time.
+def plot_net_income(weekly_data):
+    fig = px.line(weekly_data, x='Week', y='Net Income', title='Weekly Net Income Over Time',
+                  markers=True)
+    return st.plotly_chart(fig, use_container_width=True)
+
+
+# Display the plot in a container with a border.
+
+container1 = st.container(border=True)
+container2 = st.container(border=True)
+container3 = st.container(border=True)
+container4 = st.container(border=True)
+
+with container1:
     plot_total_income(weekly_data)
-
-
+with container2:
+    plot_total_cogs(weekly_data)
+with container3:
+    plot_total_expenses(weekly_data)
+with container4:
+    plot_net_income(weekly_data)
